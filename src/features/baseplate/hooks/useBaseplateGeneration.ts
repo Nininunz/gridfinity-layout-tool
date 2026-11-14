@@ -194,14 +194,17 @@ export function useBaseplateGeneration(): void {
       setMarginMeshes([]);
 
       try {
-        // The procedural direct mesh only builds rectangles — never show it
-        // for a shaped plate (a wrong-shape draft is worse than none; the
+        // The procedural direct mesh only builds rectangles and a solid underside — never show it
+        // for a shaped plate or pop-out holes (a wrong draft is worse than none; the
         // Manifold draft path runs the real generator and shows the true
         // outline, matching the canBinUseDirectMesh reject-in-the-gate rule).
         // Clear any prior mesh so a stale rectangle can't linger while BREP
         // runs (shouldDeferBrepPreview never defers shaped plates, so BREP
         // always follows).
-        if (fullParams.outline !== undefined) {
+        if (
+          fullParams.outline !== undefined ||
+          (fullParams.magnetHoles && fullParams.magnetPopOutHoles === true)
+        ) {
           setGenerationResult(EMPTY_MESH);
           setPieceMeshes([]);
           return tiling;

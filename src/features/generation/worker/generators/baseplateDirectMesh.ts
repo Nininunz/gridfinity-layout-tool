@@ -83,6 +83,9 @@ export function generateBaseplateDirect(
   onProgress: ProgressFn,
   signal?: AbortSignal
 ): MeshData {
+  if (params.magnetPopOutHoles === true && params.magnetHoles) {
+    throw new Error('Magnet pop-out holes require the exact baseplate generator');
+  }
   // Guard against NaN/negative/infinite values that would produce degenerate geometry
   if (
     !Number.isFinite(params.width) ||
@@ -316,16 +319,7 @@ export function generateBaseplateDirect(
           chamferFitsCell(cell, magnetRadius, gridUnitMm, gridUnitMmY, magnetAnchor, positions),
       };
       for (const [x, y] of positions) {
-        addMagnetHoleAt(
-          mb,
-          x,
-          y,
-          magnetRadius,
-          floorDepth,
-          magnetDepth,
-          style,
-          params.magnetPopOutHoles === true
-        );
+        addMagnetHoleAt(mb, x, y, magnetRadius, floorDepth, magnetDepth, style);
       }
     };
     // Nominal grid: full cells get the standard 4 corners, half cells whatever

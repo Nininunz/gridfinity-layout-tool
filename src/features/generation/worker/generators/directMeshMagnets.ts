@@ -81,8 +81,7 @@ export function addMagnetHoleAt(
   magnetRadius: number,
   floorDepth: number,
   magnetDepth: number,
-  style: MagnetHoleStyle = PLAIN_MAGNET_HOLE,
-  popOut = false
+  style: MagnetHoleStyle = PLAIN_MAGNET_HOLE
 ): void {
   const zTop = floorDepth; // pocket floor level (magnet hole opens here)
   const zBot = floorDepth - magnetDepth; // retaining floor the magnet sits on
@@ -101,20 +100,7 @@ export function addMagnetHoleAt(
   addBand(mb, mx, my, bore, boreTopZ, bore, zBot);
 
   // Floor disc the magnet rests on.
-  if (popOut) {
-    const opening = circlePoints(Math.min(1, magnetRadius * 0.4), segments);
-    // Cancel the underside face, then bridge the small opening to the pocket floor.
-    addDisc(mb, mx, my, CANCEL_EPSILON, opening, true);
-    addBand(mb, mx, my, opening, zBot, opening, 0);
-    const outer = bore.map(([x, y]) => mb.pushVertex(mx + x, my + y, zBot, 0, 0, 1));
-    const inner = opening.map(([x, y]) => mb.pushVertex(mx + x, my + y, zBot, 0, 0, 1));
-    for (let i = 0; i < segments; i++) {
-      const j = (i + 1) % segments;
-      mb.pushQuad(inner[i], outer[i], outer[j], inner[j]);
-    }
-  } else {
-    addDisc(mb, mx, my, zBot, bore, true);
-  }
+  addDisc(mb, mx, my, zBot, bore, true);
 }
 
 /**

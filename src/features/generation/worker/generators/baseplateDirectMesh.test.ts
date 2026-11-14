@@ -77,21 +77,16 @@ const defaults = (overrides: Partial<ResolvedBaseplateParams> = {}): ResolvedBas
 const noop = (): void => {};
 
 describe('magnet pop-out holes', () => {
-  it('opens the retaining floor in both preview and exported geometry', () => {
-    const closed = defaults({ width: 1, depth: 1, magnetHoles: true });
+  it.each([1, 1.5])('opens the retaining floor in exported geometry at %s units', (width) => {
+    const closed = defaults({ width, depth: 1, magnetHoles: true });
     const open = { ...closed, magnetPopOutHoles: true };
-    for (const generate of [
-      generateDirect,
-      (params: ResolvedBaseplateParams, _onProgress: typeof noop) =>
-        generateBrep(params, noop, true),
-    ]) {
-      const plain = generate(closed, noop);
-      const popped = generate(open, noop);
-      expect(horizontalFaceArea(popped, 1, MAGNET_FLOOR)).toBeLessThan(
-        horizontalFaceArea(plain, 1, MAGNET_FLOOR)
-      );
-      expect(popped.triangleCount).toBeGreaterThan(0);
-    }
+    const plain = generateBrep(closed, noop, true);
+    const popped = generateBrep(open, noop, true);
+    expect(horizontalFaceArea(popped, 1, MAGNET_FLOOR)).toBeLessThan(
+      horizontalFaceArea(plain, 1, MAGNET_FLOOR)
+    );
+    expect(popped.triangleCount).toBeGreaterThan(0);
+    expect(() => generateDirect(open, noop)).toThrow(/require the exact baseplate generator/);
   });
 });
 
