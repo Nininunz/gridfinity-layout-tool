@@ -48,6 +48,9 @@ jobs:
       # both and short-circuit cleanly; these PRs still get coverage from Build,
       # Unit Tests, Quality, and CodeQL, plus the post-promote production smoke.
       NO_SECRETS: ${{ github.actor == 'dependabot[bot]' || github.event.pull_request.head.repo.full_name != github.repository }}
+      # A fork has no Vercel project by default. Forks with their own preview
+      # deployment can opt in by setting this repository variable to true.
+      FORK_WITHOUT_PREVIEW: ${{ github.event.repository.fork && vars.VERCEL_PREVIEW_ENABLED != 'true' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -57,9 +60,13 @@ jobs:
           echo "::warning::Fork or Dependabot PR — VERCEL_AUTOMATION_BYPASS_SECRET unavailable; preview smoke is N/A."
           echo "Coverage for this PR comes from CI Build, Unit Tests, Quality, and CodeQL."
 
+      - name: Skip — fork has no preview deployment
+        if: env.FORK_WITHOUT_PREVIEW == 'true'
+        run: echo "::warning::Fork has no Vercel preview opt-in; PWA smoke is N/A."
+
       - name: Resolve Vercel preview URL
         id: preview
-        if: env.NO_SECRETS == 'false'
+        if: env.NO_SECRETS == 'false' && env.FORK_WITHOUT_PREVIEW == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
