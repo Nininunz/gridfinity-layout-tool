@@ -5500,5 +5500,7 @@
   "exportDestination.fail.timeout": "Opplasting til {host} tok for lang tid. Filen kan likevel ha kommet fram.",
   "exportDestination.fail.redirect": "Opplasting til {host} ble videresendt. Bruk den endelige adressen i Innstillinger.",
   "baseplate.mountMagnets.crushRibs": "Klemribber",
-  "baseplate.mountMagnets.crushRibsDetail": "Åtte ribber i hvert magnethull på undersiden holder en innpresset magnet uten lim."
+  "baseplate.mountMagnets.crushRibsDetail": "Åtte ribber i hvert magnethull på undersiden holder en innpresset magnet uten lim.",
+  "baseplate.magnetPopOutHoles": "Utskyvingshull for magneter",
+  "baseplate.magnetPopOutHolesDetail": "Små hull gjennom bunnen av hver magnetlomme gjør at magnetene kan skyves ut nedenfra."
 }

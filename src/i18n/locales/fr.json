@@ -5500,5 +5500,7 @@
   "exportDestination.fail.timeout": "L'envoi vers {host} a pris trop de temps. Le fichier est peut-être quand même arrivé.",
   "exportDestination.fail.redirect": "L'envoi vers {host} a été redirigé. Indiquez l'adresse finale dans les Paramètres.",
   "baseplate.mountMagnets.crushRibs": "Nervures de serrage",
-  "baseplate.mountMagnets.crushRibsDetail": "Huit nervures dans chaque logement sous la plaque retiennent un aimant emboîté sans colle."
+  "baseplate.mountMagnets.crushRibsDetail": "Huit nervures dans chaque logement sous la plaque retiennent un aimant emboîté sans colle.",
+  "baseplate.magnetPopOutHoles": "Trous d’éjection des aimants",
+  "baseplate.magnetPopOutHolesDetail": "De petits trous sous chaque logement permettent de pousser les aimants par-dessous."
 }

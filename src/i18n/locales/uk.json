@@ -5778,5 +5778,7 @@
   "exportDestination.fail.timeout": "Вивантаження на {host} тривало надто довго. Файл, можливо, все одно дійшов.",
   "exportDestination.fail.redirect": "Вивантаження на {host} було переспрямовано. Вкажіть кінцеву адресу в Налаштуваннях.",
   "baseplate.mountMagnets.crushRibs": "Притискні ребра",
-  "baseplate.mountMagnets.crushRibsDetail": "Вісім ребер у кожному отворі знизу утримують запресований магніт без клею."
+  "baseplate.mountMagnets.crushRibsDetail": "Вісім ребер у кожному отворі знизу утримують запресований магніт без клею.",
+  "baseplate.magnetPopOutHoles": "Отвори для виштовхування магнітів",
+  "baseplate.magnetPopOutHolesDetail": "Невеликі отвори під кожним гніздом дають змогу виштовхнути магніти знизу."
 }
