@@ -316,7 +316,16 @@ export function generateBaseplateDirect(
           chamferFitsCell(cell, magnetRadius, gridUnitMm, gridUnitMmY, magnetAnchor, positions),
       };
       for (const [x, y] of positions) {
-        addMagnetHoleAt(mb, x, y, magnetRadius, floorDepth, magnetDepth, style);
+        addMagnetHoleAt(
+          mb,
+          x,
+          y,
+          magnetRadius,
+          floorDepth,
+          magnetDepth,
+          style,
+          params.magnetPopOutHoles === true
+        );
       }
     };
     // Nominal grid: full cells get the standard 4 corners, half cells whatever
